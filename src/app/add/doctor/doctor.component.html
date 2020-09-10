@@ -1,0 +1,25 @@
+<div class="container">
+  <form [formGroup]="addForm" (submit)="onNext()">
+    <mat-form-field>
+      <mat-label>
+        Department
+      </mat-label>
+      <mat-select>
+        <mat-option value=""></mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>
+        Doctor
+      </mat-label>
+      <mat-select>
+        <mat-option value=""></mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="btn-wrapper">
+      <button mat-flat-button color="primary" type="submit">Submit</button>
+    </div>
+  </form>
+</div>

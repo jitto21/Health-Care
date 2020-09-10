@@ -1,0 +1,43 @@
+<div class="container">
+  <form [formGroup]="addForm" (submit)="onNext()">
+    <mat-form-field>
+      <mat-label>
+        Address 1
+      </mat-label>
+      <input type="text" matInput formControlName="address1">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>
+        Address 2
+      </mat-label>
+      <input type="text" matInput formControlName="address2">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>
+        Address 3
+      </mat-label>
+      <input type="text" matInput formControlName="address3">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>
+        Pincode
+      </mat-label>
+      <input type="tel" matInput formControlName="pincode">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>
+        Contact Number
+      </mat-label>
+      <input type="tel" matInput formControlName="mobile">
+    </mat-form-field>
+
+    <div class="btn-wrapper">
+      <button mat-flat-button color="primary" type="submit">Next</button>
+    </div>
+
+  </form>
+</div>

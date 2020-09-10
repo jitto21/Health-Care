@@ -1,0 +1,46 @@
+<div class="container">
+  <form [formGroup]="addForm" (submit)="onNext()">
+    <mat-form-field>
+      <mat-label>
+        First Name
+      </mat-label>
+      <input type="text" matInput formControlName="fname">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>
+        Middle Name
+      </mat-label>
+      <input type="text" matInput formControlName="mname">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>
+        Last Name
+      </mat-label>
+      <input type="text" matInput formControlName="lname">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>
+        Gender
+      </mat-label>
+      <mat-select formControlName="gender">
+        <mat-option value="Male">Male</mat-option>
+        <mat-option value="Female">Female</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>
+        Date of Birth
+      </mat-label>
+      <input type="date" matInput formControlName="dob">
+    </mat-form-field>
+
+    <div class="btn-wrapper">
+      <button [disabled]="" mat-flat-button color="primary" type="submit">Next</button>
+    </div>
+
+  </form>
+</div>
