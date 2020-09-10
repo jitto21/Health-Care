@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { RecordService } from 'src/app/service/record.service';
 
 @Component({
   selector: 'app-contact',
@@ -16,12 +17,17 @@ export class ContactComponent implements OnInit {
     mobile: new FormControl('',[Validators.required])
   })
 
-  constructor() { }
+  constructor(private recService: RecordService) { }
 
   ngOnInit(): void {
+    if(this.recService.fetchFromSession('contact')) {
+      console.log("contact already in storage");
+      this.addForm.setValue(this.recService.fetchFromSession('contact'));
+    }
   }
 
   onNext() {
-    
+    console.log("conatct: ",this.addForm.value);
+    this.recService.onSaveContact(this.addForm.value);
   }
 }

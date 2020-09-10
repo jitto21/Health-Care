@@ -1,11 +1,11 @@
 <div class="container">
-  <form [formGroup]="addForm" (submit)="onNext()">
+  <form [formGroup]="addForm" (submit)="onSubmit()">
     <mat-form-field>
       <mat-label>
         Department
       </mat-label>
-      <mat-select>
-        <mat-option value=""></mat-option>
+      <mat-select formControlName="dept">
+        <mat-option *ngFor="let dept of depts" [value]="dept">{{ dept }}</mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -13,13 +13,18 @@
       <mat-label>
         Doctor
       </mat-label>
-      <mat-select>
-        <mat-option value=""></mat-option>
+      <mat-select formControlName="doctor">
+        <mat-option *ngFor="let doc of doctors" [value]="doc" value="">{{ doc }}</mat-option>
       </mat-select>
     </mat-form-field>
 
     <div class="btn-wrapper">
-      <button mat-flat-button color="primary" type="submit">Submit</button>
+      <button mat-flat-button color="primary" type="submit"
+      [disabled]="(emptyP || emptyC) || addForm.invalid">Submit</button>
     </div>
   </form>
+
+  <div *ngIf="emptyP || emptyC" class="alert">
+    <p>Complete Personal and Contact Information</p>
+  </div>
 </div>
