@@ -7,6 +7,7 @@ import { AddComponent } from './add.component';
 
 const addRoutes: Routes = [
   { path: '', component: AddComponent, children: [
+    { path: '', redirectTo: 'personal', pathMatch: 'full' },
     { path: 'personal', component: PersonalComponent },
     { path: 'contact', component: ContactComponent },
     { path: 'doctor', component: DoctorComponent }
