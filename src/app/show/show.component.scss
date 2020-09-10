@@ -1,0 +1,37 @@
+.container {
+  display: block;
+  overflow-x: auto;
+  .mat-table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    display: table;
+    border-collapse: collapse;
+    margin: 0px;
+  }
+  .mat-row,
+  .mat-header-row {
+    display: table-row;
+  }
+  .mat-cell,
+  .mat-header-cell {
+    word-wrap: initial;
+    display: table-cell;
+    padding: 0px 5px;
+    line-break: unset;
+    width: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: middle;
+  }
+
+  width: 90vw;
+  height: 80vh;
+  margin: 2.5rem auto 0 auto;
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(191, 191, 191, 1);
+  -moz-box-shadow: 0px 0px 5px 1px rgba(191, 191, 191, 1);
+  box-shadow: 0px 0px 5px 1px rgba(191, 191, 191, 1);
+  table {
+    width: 100%;
+  }
+}
