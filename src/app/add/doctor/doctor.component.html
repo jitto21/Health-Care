@@ -5,7 +5,7 @@
         Department
       </mat-label>
       <mat-select>
-        <mat-option value=""></mat-option>
+        <mat-option *ngFor="let dept of depts" [value]="dept">{{ dept }}</mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -19,7 +19,8 @@
     </mat-form-field>
 
     <div class="btn-wrapper">
-      <button mat-flat-button color="primary" type="submit">Submit</button>
+      <button mat-flat-button color="primary" type="submit"
+      [disabled]="(emptyP || emptyC) || addForm.invalid">Submit</button>
     </div>
   </form>
 </div>

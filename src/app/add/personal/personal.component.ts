@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { RecordService } from 'src/app/service/record.service';
 
 @Component({
   selector: 'app-personal',
@@ -9,29 +10,22 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class PersonalComponent implements OnInit {
 
   addForm = new FormGroup({
-    regno: new FormControl('',[Validators.required]),
+    regno: new FormControl(''),
     fname: new FormControl('',[Validators.required]),
     mname: new FormControl(''),
     lname: new FormControl('',[Validators.required]),
-    address1: new FormControl('',[Validators.required]),
-    address2: new FormControl('',[Validators.required]),
-    address3: new FormControl('',[Validators.required]),
-    pincode: new FormControl('',[Validators.required]),
-    mobile: new FormControl('',[Validators.required]),
     dob: new FormControl('',[Validators.required]),
-    gender: new FormControl('',[Validators.required]),
-    dept: new FormControl('',[Validators.required]),
-    doctor: new FormControl('',[Validators.required]),
-
+    gender: new FormControl('',[Validators.required])
   })
 
-  constructor() { }
+  constructor(private recService: RecordService) { }
 
   ngOnInit(): void {
   }
 
   onNext() {
     console.log("personal: ",this.addForm.value);
+    this.recService.onSavePersonal(this.addForm.value);
   }
 
 }

@@ -6,10 +6,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
 import { AddRoutingModule } from './add-routing.module';
 import { MatFormField } from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [PersonalComponent, ContactComponent, DoctorComponent],
-  imports: [AddRoutingModule, FormsModule, ReactiveFormsModule, MaterialModule]
+  imports: [AddRoutingModule, FormsModule, ReactiveFormsModule, MaterialModule, CommonModule]
 })
 
 export class AddModule {}
