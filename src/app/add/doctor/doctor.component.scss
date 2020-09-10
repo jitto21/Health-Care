@@ -1,3 +1,8 @@
+$baby-blue: #e7f6fc;
+$teal-blue: #a5cfe3;
+$teal-green: #028476;
+$forest-green: #00221c;
+
 form {
   mat-form-field {
     font-weight: bold;
@@ -9,5 +14,17 @@ form {
     button {
       font-weight: bold;
     }
+  }
+}
+
+.alert {
+  border-radius: 20px;
+  font-weight: bold;
+  color: $forest-green;
+  background-color: $teal-blue;
+  margin-top: 1rem;
+  padding: 0.3rem 0.6rem;
+  p{
+    margin:0;
   }
 }

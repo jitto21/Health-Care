@@ -20,6 +20,10 @@ export class ContactComponent implements OnInit {
   constructor(private recService: RecordService) { }
 
   ngOnInit(): void {
+    if(this.recService.fetchFromSession('contact')) {
+      console.log("contact already in storage");
+      this.addForm.setValue(this.recService.fetchFromSession('contact'));
+    }
   }
 
   onNext() {

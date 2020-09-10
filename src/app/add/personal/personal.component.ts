@@ -21,6 +21,10 @@ export class PersonalComponent implements OnInit {
   constructor(private recService: RecordService) { }
 
   ngOnInit(): void {
+    if(this.recService.fetchFromSession('personal')) {
+      console.log("personal already in storage");
+      this.addForm.setValue(this.recService.fetchFromSession('personal'));
+    }
   }
 
   onNext() {
