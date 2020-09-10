@@ -9,12 +9,14 @@ import { ShowComponent } from './show/show.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { AddModule } from './add/add.module';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddComponent,
-    ShowComponent
+    ShowComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
