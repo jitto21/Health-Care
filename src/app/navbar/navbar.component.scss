@@ -1,0 +1,49 @@
+$forest-green: #00221c;
+
+mat-toolbar {
+  a{
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.9);
+    &:hover {
+      color: rgba(255, 255, 255, 1);
+    }
+    &:visited, &:active {
+      border: none;
+    }
+  }
+  .spacer {
+    flex: 1 1 auto;
+  }
+  button {
+    color: $forest-green;
+    background-color: white;
+    font-weight: bolder;
+  }
+  #records {
+    margin-right: 1em;
+    a{
+      padding: 0.3em 0.5em;
+      border-radius: 20px;
+    }
+  }
+  #brand-name {
+    font-weight: bolder;
+    font-size: larger;
+  }
+  mat-icon {
+    transform: scale(1.1);
+    font-weight: bolder;
+    &:hover {
+      transform: scale(1.25);
+    }
+  }
+}
+
+.active {
+  color: rgba(255, 255, 255, 1) !important;
+  background-color: $forest-green;
+}
+
+.active-icon {
+}
+
