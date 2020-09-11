@@ -1,6 +1,9 @@
+$forest-green: #00221c;
+
 .container {
   display: block;
   overflow-x: auto;
+
   .mat-table {
     width: 100%;
     max-width: 100%;
@@ -31,7 +34,23 @@
   -webkit-box-shadow: 0px 0px 5px 1px rgba(191, 191, 191, 1);
   -moz-box-shadow: 0px 0px 5px 1px rgba(191, 191, 191, 1);
   box-shadow: 0px 0px 5px 1px rgba(191, 191, 191, 1);
+
   table {
     width: 100%;
   }
+
+  .mobile-table {
+    td.mat-cell {
+      border-right: 0.5px solid rgba(0, 0, 0, 0.226);
+      &:not(:first-child) {
+      }
+    }
+    td.mat-cell:nth-child(1) {
+      font-weight: bold;
+      color: $forest-green;
+    }
+  }
 }
+
+// table.md-table td.md-cell {border-left: 1px rgba(0, 0, 0, 0.12) solid; padding: 0 24px !important;}
+

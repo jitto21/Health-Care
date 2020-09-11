@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
 export class RecordService {
 
   private records = [
-    {name: 'Harry James Potter', gender: 'Male', dob: '02/01/1987', address: '4 Privet Drive, Surrey, 680012', mobile: 9876543201, dept: 'Onchology', doctor: 'Dr. Benjamin Richards'},
-    {name: 'Lilly James Potter', gender: 'Female', dob: '02/01/1960', address: '4 Privet Drive, Surrey, 680012', mobile: 9234567801, dept: 'Cardiology', doctor: 'Dr. Lewis Frank'},
+    {regno: 847860, name: 'Harry James Potter', gender: 'Male', dob: '02/01/1987', address: '4 Privet Drive, Surrey, 680012', mobile: 9876543201, dept: 'Onchology', doctor: 'Dr. Benjamin Richards'},
+    {regno: 756329, name: 'Lilly James Potter', gender: 'Female', dob: '02/01/1960', address: '4 Privet Drive, Surrey, 680012', mobile: 9234567801, dept: 'Cardiology', doctor: 'Dr. Lewis Frank'},
   ]
 
   private personal: any = { };
@@ -26,7 +26,7 @@ export class RecordService {
       address: `${this.contact.address1}, ${this.contact.address2}, ${this.contact.address3}, ${this.contact.pincode},`,
       mobile: +this.contact.mobile, gender: this.personal.gender, dob: this.personal.dob, regno: this.personal.regno
     };
-    
+
     this.records.push(record);
     this.saveToSession(this.records, 'records');
     this.deleteFromSession('personal');

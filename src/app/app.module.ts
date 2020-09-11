@@ -23,7 +23,9 @@ import { NavbarComponent } from './navbar/navbar.component';
     AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule,
-    AddModule
+    AddModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
