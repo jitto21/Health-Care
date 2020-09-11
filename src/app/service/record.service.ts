@@ -26,7 +26,7 @@ export class RecordService {
       address: `${this.contact.address1}, ${this.contact.address2}, ${this.contact.address3}, ${this.contact.pincode},`,
       mobile: +this.contact.mobile, gender: this.personal.gender, dob: this.personal.dob, regno: this.personal.regno
     };
-    
+
     this.records.push(record);
     this.saveToSession(this.records, 'records');
     this.deleteFromSession('personal');
