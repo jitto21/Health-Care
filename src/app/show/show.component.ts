@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RecordService } from '../service/record.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-show',
@@ -40,19 +41,28 @@ export class ShowComponent implements OnInit {
   // ];
   // displayedColumns1 = [];
 
-  constructor(private recService: RecordService) {
+  constructor(private recService: RecordService, private _snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
     this.records = this.recService.fetchRecords();
     console.table(this.records);
+    this.recService.editRecListener().subscribe(response => {
+      this.editMode = false;
+      this.forEditRows = [];
+      console.table(response);
+      this.records = response;
+      this._snackBar.open('Record Updated Successfully', 'OK', {
+        duration: 2000,
+      });
+    })
     // this.transpose();
     // this.fillLabels();
   }
 
   onEdit(record) {
     this.editMode = true;
-    this.forEditRows.push(record);
+    this.forEditRows = [record];
     let index = this.forEditRows.indexOf(record);
     console.log("INDEX: ", index);
     this.editForm.setValue(this.forEditRows[index]);
@@ -63,8 +73,9 @@ export class ShowComponent implements OnInit {
     console.log("to delete: ", record)
   }
 
-  onEditForm() {
+  onSaveForm() {
     console.log("FORM: ",this.editForm.value);
+    this.recService.editRecord(this.editForm.value);
   }
 
   // transpose() {

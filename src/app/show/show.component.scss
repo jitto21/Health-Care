@@ -37,6 +37,9 @@ $forest-green: #00221c;
 
   table {
     width: 100%;
+    mat-form-field {
+      padding: 1rem 0.3rem 0 0.3rem !important;
+    }
   }
 
   .mobile-table {

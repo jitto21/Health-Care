@@ -1,19 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({ providedIn: 'root' })
 
 export class RecordService {
 
   private records = [
-    {regno: 847860, name: 'Harry James Potter', gender: 'Male', dob: '02/01/1987', address: '4 Privet Drive, Surrey, 680012', mobile: 9876543201, dept: 'Onchology', doctor: 'Dr. Benjamin Richards'},
+    {regno: 847860, name: 'Harry James Potter', gender: 'Male', dob: '02/01/1987', address: '4 Privet Drive, Surrey, 680012', mobile: 9876543201, dept: 'Urology', doctor: 'Dr. Benjamin Richards'},
     {regno: 756329, name: 'Lilly James Potter', gender: 'Female', dob: '02/01/1960', address: '4 Privet Drive, Surrey, 680012', mobile: 9234567801, dept: 'Cardiology', doctor: 'Dr. Lewis Frank'},
   ]
 
+  private recSubject = new Subject<any>();
   private personal: any = { };
   private contact : any= { };
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private _snackBar: MatSnackBar) {}
 
   fetchRecords() {
     return this.records.slice();
@@ -31,6 +34,22 @@ export class RecordService {
     this.saveToSession(this.records, 'records');
     this.deleteFromSession('personal');
     this.deleteFromSession('contact');
+  }
+
+  editRecord(record) {
+    this.records.map(rec => {
+      if(rec.regno == record.regno) {
+        console.log("found ", rec.regno);
+        Object.assign(rec, record);
+        return;
+      }
+    });
+    this.recSubject.next(this.records);
+    this.saveToSession(this.records, 'records');
+  }
+
+  editRecListener() {
+    return this.recSubject.asObservable();
   }
 
   onSavePersonal(pers) {
