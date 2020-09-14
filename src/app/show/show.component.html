@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="table" *ngIf="records == null || undefined; else no_content">
+  <div class="table" *ngIf="records.length != 0; else no_content">
     <table mat-table [dataSource]="records" matSort>
 
       <form [formGroup]="editForm" (submit)="onSaveForm()">
