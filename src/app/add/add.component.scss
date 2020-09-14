@@ -75,7 +75,7 @@ $forest-green: #00221c;
   font-weight: bold !important;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 864px) {
   .container {
     flex-direction: column;
     width: 95%;
@@ -91,6 +91,16 @@ $forest-green: #00221c;
     }
     .content {
       height: 65%;
+    }
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 768px)  {
+  .side-bar {
+    h4{
+      :nth-child(2) {
+        margin-left: 1rem !important;
+      }
     }
   }
 }
