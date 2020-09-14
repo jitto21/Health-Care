@@ -50,10 +50,13 @@ export class ShowComponent implements OnInit {
     this.recService.editRecListener().subscribe(response => {
       this.editMode = false;
       this.forEditRows = [];
-      console.table(response);
-      this.records = response;
-      this._snackBar.open('Record Updated Successfully', 'OK', {
-        duration: 2000,
+      console.table(response.records);
+      this.records = response.records;
+      let msg = response.op === 'edit' ? 'Updated' : 'Deleted';
+      let panel = response.op === 'edit' ? ['mat-toolbar', 'mat-primary'] : ['mat-toolbar', 'mat-warn'];
+      this._snackBar.open(`Record ${msg} Successfully`, '', {
+        duration: 3000,
+        panelClass: panel
       });
     })
     // this.transpose();
@@ -71,6 +74,7 @@ export class ShowComponent implements OnInit {
 
   onDelete(record) {
     console.log("to delete: ", record)
+    this.recService.deleteRecord(record.regno);
   }
 
   onSaveForm() {

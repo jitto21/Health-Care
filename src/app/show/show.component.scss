@@ -1,4 +1,6 @@
 $forest-green: #00221c;
+$baby-blue: #e7f6fc;
+$teal-blue: #a5cfe3;
 
 .container {
   display: block;
@@ -54,6 +56,26 @@ $forest-green: #00221c;
     }
   }
 }
+
+.no-content {
+  margin: 2rem 10px 0 10px;
+  p{
+    text-align: center;
+    padding: 0.5rem;
+    color: $forest-green;
+    border-radius: 20px;
+    width: fit-content;
+    margin: 0 auto;
+    background-color: $teal-blue;
+    font-size: clamp(0.9rem, calc(1vw + 0.8rem), 1rem);
+    a{
+      text-decoration: underline;
+      color: white;
+      font-weight: bold;
+    }
+  }
+}
+
 
 // table.md-table td.md-cell {border-left: 1px rgba(0, 0, 0, 0.12) solid; padding: 0 24px !important;}
 

@@ -9,10 +9,10 @@ import { RecordService } from 'src/app/service/record.service';
 })
 export class DoctorComponent implements OnInit {
 
-  public depts = ['Gastroenterology', 'Cardiology', 'Dental', 'Dermatology', 'Endocrinology', 'ENT', 'Diabetologist', 'General Medicine', 'General Medicine',
+  public depts = [ 'Cardiology', 'Dental', 'Dermatology', 'Diabetologist', 'Endocrinology', 'ENT', 'Gastroenterology', 'General Medicine', 'General Medicine',
   'Nephrology', 'Neurology', 'Obstetrics & Gynecology', 'Oncology & Radiation Oncology', 'Ophthalmology', 'Orthopaedics', 'Pathology', 'Radiology', 'Urology'];
 
-  public doctors = ['Dr. Benjamin Frank']
+  public doctors = ['Dr. Benjamin Richards', 'Dr. Lewis Frank'];
   personal = {}
   contact = {}
   emptyP: boolean = false;
