@@ -18,17 +18,19 @@ mat-toolbar {
     color: $forest-green;
     background-color: white;
     font-weight: bolder;
+    font-size: clamp(0.9rem, calc(1vw + 1rem), 2.2rem);
   }
   #records {
-    margin-right: 1em;
+    margin-right: 1vw;
     a{
       padding: 0.3em 0.5em;
       border-radius: 20px;
+      font-size: clamp(0.9rem, calc(1vw + 0.8rem), 1.3rem);
     }
   }
   #brand-name {
     font-weight: bolder;
-    font-size: larger;
+    font-size: clamp(0.9rem, calc(1vw + 1rem), 2.2rem);
   }
   mat-icon {
     transform: scale(1.1);
