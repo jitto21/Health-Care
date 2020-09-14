@@ -1,129 +1,136 @@
 <div class="container">
-  <table mat-table [dataSource]="records" matSort>
+  <div class="table" *ngIf="records == null || undefined; else no_content">
+    <table mat-table [dataSource]="records" matSort>
 
-    <form [formGroup]="editForm" (submit)="onSaveForm()">
-      <ng-container matColumnDef="regno">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Reg No: </th>
-        <td mat-cell *matCellDef="let element"> {{element.regno}} </td>
-      </ng-container>
+      <form [formGroup]="editForm" (submit)="onSaveForm()">
+        <ng-container matColumnDef="regno">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Reg No: </th>
+          <td mat-cell *matCellDef="let element"> {{element.regno}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-        <td mat-cell *matCellDef="let element">
-          <span *ngIf="forEditRows.indexOf(element) != -1">
-            <mat-form-field>
-              <mat-label>Name</mat-label>
-              <input formControlName="name" matInput type="text">
-            </mat-form-field>
-          </span>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+          <td mat-cell *matCellDef="let element">
+            <span *ngIf="forEditRows.indexOf(element) != -1">
+              <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input formControlName="name" matInput type="text">
+              </mat-form-field>
+            </span>
 
-          <span *ngIf="!(forEditRows.indexOf(element) != -1)"> {{element.name}} </span>
-        </td>
-      </ng-container>
+            <span *ngIf="!(forEditRows.indexOf(element) != -1)"> {{element.name}} </span>
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="gender">
-        <th mat-header-cell *matHeaderCellDef> Gender </th>
-        <td mat-cell *matCellDef="let element">
-          <span *ngIf="forEditRows.indexOf(element) != -1">
-            <mat-form-field>
-              <mat-label>Gender</mat-label>
-              <mat-select formControlName="gender">
-                <mat-option value="Male">Male</mat-option>
-                <mat-option value="Female">Female</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </span>
+        <ng-container matColumnDef="gender">
+          <th mat-header-cell *matHeaderCellDef> Gender </th>
+          <td mat-cell *matCellDef="let element">
+            <span *ngIf="forEditRows.indexOf(element) != -1">
+              <mat-form-field>
+                <mat-label>Gender</mat-label>
+                <mat-select formControlName="gender">
+                  <mat-option value="Male">Male</mat-option>
+                  <mat-option value="Female">Female</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </span>
 
-          <span *ngIf="!(forEditRows.indexOf(element) != -1)">{{element.gender}}</span>
-        </td>
-      </ng-container>
+            <span *ngIf="!(forEditRows.indexOf(element) != -1)">{{element.gender}}</span>
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="dob">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date of Birth </th>
-        <td mat-cell *matCellDef="let element">
-          <span *ngIf="forEditRows.indexOf(element) != -1">
-            <mat-form-field>
-              <mat-label>Date of Birth</mat-label>
-              <input type="date" matInput formControlName="dob">
-            </mat-form-field>
-          </span>
+        <ng-container matColumnDef="dob">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Date of Birth </th>
+          <td mat-cell *matCellDef="let element">
+            <span *ngIf="forEditRows.indexOf(element) != -1">
+              <mat-form-field>
+                <mat-label>Date of Birth</mat-label>
+                <input type="date" matInput formControlName="dob">
+              </mat-form-field>
+            </span>
 
-          <span *ngIf="!(forEditRows.indexOf(element) != -1)"> {{element.dob}}</span>
-        </td>
-      </ng-container>
+            <span *ngIf="!(forEditRows.indexOf(element) != -1)"> {{element.dob}}</span>
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="address">
-        <th mat-header-cell *matHeaderCellDef> Address </th>
-        <td mat-cell *matCellDef="let element">
-          <span *ngIf="forEditRows.indexOf(element) != -1">
-            <mat-form-field>
-              <mat-label>Address</mat-label>
-              <input placeholder="Address1, Address2, Address3, PINCODE" type="text" matInput formControlName="address">
-            </mat-form-field>
-          </span>
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef> Address </th>
+          <td mat-cell *matCellDef="let element">
+            <span *ngIf="forEditRows.indexOf(element) != -1">
+              <mat-form-field>
+                <mat-label>Address</mat-label>
+                <input placeholder="Address1, Address2, Address3, PINCODE" type="text" matInput formControlName="address">
+              </mat-form-field>
+            </span>
 
-          <span *ngIf="!(forEditRows.indexOf(element) != -1)"> {{element.address}} </span>
-        </td>
-      </ng-container>
+            <span *ngIf="!(forEditRows.indexOf(element) != -1)"> {{element.address}} </span>
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="dept">
-        <th mat-header-cell *matHeaderCellDef> Department </th>
-        <td mat-cell *matCellDef="let element">
-          <span *ngIf="forEditRows.indexOf(element) != -1">
-            <mat-form-field>
-              <mat-label>Department</mat-label>
-              <mat-select formControlName="dept">
-                <mat-option *ngFor="let dept of depts" [value]="dept">{{ dept }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </span>
+        <ng-container matColumnDef="dept">
+          <th mat-header-cell *matHeaderCellDef> Department </th>
+          <td mat-cell *matCellDef="let element">
+            <span *ngIf="forEditRows.indexOf(element) != -1">
+              <mat-form-field>
+                <mat-label>Department</mat-label>
+                <mat-select formControlName="dept">
+                  <mat-option *ngFor="let dept of depts" [value]="dept">{{ dept }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </span>
 
-          <span *ngIf="!(forEditRows.indexOf(element) != -1)">{{element.dept}}</span>
-        </td>
-      </ng-container>
+            <span *ngIf="!(forEditRows.indexOf(element) != -1)">{{element.dept}}</span>
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="doctor">
-        <th mat-header-cell *matHeaderCellDef> Doctor </th>
-        <td mat-cell *matCellDef="let element">
-          <span *ngIf="forEditRows.indexOf(element) != -1">
-            <mat-form-field>
-              <mat-label>Doctor</mat-label>
-              <mat-select formControlName="doctor">
-                <mat-option *ngFor="let doc of doctors" [value]="doc" value="">{{ doc }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </span>
+        <ng-container matColumnDef="doctor">
+          <th mat-header-cell *matHeaderCellDef> Doctor </th>
+          <td mat-cell *matCellDef="let element">
+            <span *ngIf="forEditRows.indexOf(element) != -1">
+              <mat-form-field>
+                <mat-label>Doctor</mat-label>
+                <mat-select formControlName="doctor">
+                  <mat-option *ngFor="let doc of doctors" [value]="doc" value="">{{ doc }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </span>
 
-          <span *ngIf="!(forEditRows.indexOf(element) != -1)">{{element.doctor}}</span>
-        </td>
-      </ng-container>
+            <span *ngIf="!(forEditRows.indexOf(element) != -1)">{{element.doctor}}</span>
+          </td>
+        </ng-container>
 
-      <!--BUTTONS-->
+        <!--BUTTONS-->
 
-      <ng-container matColumnDef="edit">
-        <th mat-header-cell *matHeaderCellDef> Edit/Save </th>
-        <td mat-cell *matCellDef="let element">
-          <button *ngIf="!(forEditRows.indexOf(element) != -1)" mat-icon-button color="primary" (click)="onEdit(element)" type="button">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button *ngIf="forEditRows.indexOf(element) != -1" mat-icon-button color="primary" (click)="onSaveForm()" type="submit">
-            <mat-icon>save</mat-icon>
-          </button>
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef> Edit/Save </th>
+          <td mat-cell *matCellDef="let element">
+            <button *ngIf="!(forEditRows.indexOf(element) != -1)" mat-icon-button color="primary" (click)="onEdit(element)" type="button">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button [disabled]="editForm.invalid" *ngIf="forEditRows.indexOf(element) != -1" mat-icon-button color="primary" (click)="onSaveForm()" type="submit">
+              <mat-icon>save</mat-icon>
+            </button>
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="delete">
-        <th mat-header-cell *matHeaderCellDef> Delete </th>
-        <td mat-cell *matCellDef="let element"> <button mat-icon-button color="warn" (click)="onDelete(element)">
-            <mat-icon>delete</mat-icon>
-          </button> </td>
-      </ng-container>
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef> Delete </th>
+          <td mat-cell *matCellDef="let element"> <button mat-icon-button color="warn" (click)="onDelete(element)">
+              <mat-icon>delete</mat-icon>
+            </button> </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" [style.background]="forEditRows.indexOf(row) != -1 ? '#e7f6fc' : ''"></tr>
-    </form>
-  </table>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [style.background]="forEditRows.indexOf(row) != -1 ? '#e7f6fc' : ''"></tr>
+      </form>
+    </table>
 
+  </div>
+  <ng-template #no_content>
+    <div class="no-content">
+      <p>Oops! No Records Found. Goto <a routerLink="/add">Add Records</a> to add new records.</p>
+    </div>
+  </ng-template>
   <!--MOBILE VIEW-->
 
   <!-- <table class="mobile-table" mat-table [dataSource]="dataSource">

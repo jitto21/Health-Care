@@ -31,6 +31,9 @@ mat-toolbar {
   #brand-name {
     font-weight: bolder;
     font-size: clamp(0.9rem, calc(1vw + 1rem), 2.2rem);
+    a{
+      color: white;
+    }
   }
   mat-icon {
     transform: scale(1.1);

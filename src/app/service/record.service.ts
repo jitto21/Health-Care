@@ -34,6 +34,10 @@ export class RecordService {
     this.saveToSession(this.records, 'records');
     this.deleteFromSession('personal');
     this.deleteFromSession('contact');
+    this._snackBar.open('New Record Added!', '', {
+      duration: 3000,
+      panelClass: ['mat-toolbar', 'mat-primary']
+    });
   }
 
   editRecord(record) {
@@ -44,7 +48,15 @@ export class RecordService {
         return;
       }
     });
-    this.recSubject.next(this.records);
+    this.recSubject.next({ records: this.records, op: 'edit' });
+    this.saveToSession(this.records, 'records');
+  }
+
+  deleteRecord(regno) {
+    this.records = this.records.filter(record => {
+      return record.regno != regno;
+    });
+    this.recSubject.next({ records: this.records, op: 'delete' });
     this.saveToSession(this.records, 'records');
   }
 
