@@ -35,7 +35,7 @@
       <mat-label>
         Date of Birth
       </mat-label>
-      <input type="date" matInput formControlName="dob">
+      <input type="date" matInput formControlName="dob" [max]="maxDate">
     </mat-form-field>
 
     <div class="btn-wrapper">

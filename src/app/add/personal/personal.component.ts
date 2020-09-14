@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RecordService } from 'src/app/service/record.service';
@@ -9,6 +10,7 @@ import { RecordService } from 'src/app/service/record.service';
 })
 export class PersonalComponent implements OnInit {
 
+  maxDate;
   addForm = new FormGroup({
     regno: new FormControl(''),
     fname: new FormControl('',[Validators.required]),
@@ -18,7 +20,10 @@ export class PersonalComponent implements OnInit {
     gender: new FormControl('',[Validators.required])
   })
 
-  constructor(private recService: RecordService) { }
+  constructor(private recService: RecordService, private datePipe: DatePipe) {
+    this.maxDate = this.datePipe.transform(new Date(), "yyyy-MM-dd");
+
+  }
 
   ngOnInit(): void {
     if(this.recService.fetchFromSession('personal')) {
