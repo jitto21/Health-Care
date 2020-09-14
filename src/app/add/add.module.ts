@@ -11,7 +11,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 @NgModule({
   declarations: [PersonalComponent, ContactComponent, DoctorComponent],
   imports: [AddRoutingModule, FormsModule, ReactiveFormsModule, MaterialModule, CommonModule],
-  entryComponents: [DatePipe]
+  providers: [DatePipe]
 })
 
 export class AddModule {}
