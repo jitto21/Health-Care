@@ -80,8 +80,7 @@ $forest-green: #00221c;
     flex-direction: column;
     width: 95%;
     height: 100vh;
-    .side-bar,
-    .content {
+    .side-bar, .content {
       width: 100%;
       padding: 0;
     }
@@ -91,6 +90,7 @@ $forest-green: #00221c;
     }
     .content {
       height: 65%;
+      padding-top: 1.5rem;
     }
   }
 }
