@@ -8,8 +8,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class RecordService {
 
   private records = [
-    {regno: 847860, name: 'Harry James Potter', gender: 'Male', dob: '1987-02-25', address: '4 Privet Drive, Surrey, 680012', mobile: 9876543201, dept: 'Urology', doctor: 'Dr. Benjamin Richards'},
-    {regno: 756329, name: 'Lilly James Potter', gender: 'Female', dob: '1960-01-15', address: '4 Privet Drive, Surrey, 680012', mobile: 9234567801, dept: 'Cardiology', doctor: 'Dr. Lewis Frank'},
+    {regno: 847860, name: 'Harry James Potter', gender: 'Male', dob: '1987-02-25', address: '4 Privet Drive, Surrey, 680012', pmobile: 9876543201, hmobile: '', dept: 'Urology', doctor: 'Dr. Benjamin Richards'},
+    {regno: 756329, name: 'Lilly James Potter', gender: 'Female', dob: '1960-01-15', address: '4 Privet Drive, Surrey, 680012', pmobile: 9234567801, hmobile: '', dept: 'Cardiology', doctor: 'Dr. Lewis Frank'},
   ]
 
   private recSubject = new Subject<any>();
@@ -27,7 +27,7 @@ export class RecordService {
     let record = {
       ...doctor, name: `${this.personal.fname} ${this.personal.mname} ${this.personal.lname}`,
       address: `${this.contact.address1}, ${this.contact.address2}, ${this.contact.address3}, ${this.contact.pincode}`,
-      mobile: +this.contact.mobile, gender: this.personal.gender, dob: this.personal.dob, regno: this.personal.regno
+      pmobile: +this.contact.pmobile, hmobile: +this.contact.hmobile, gender: this.personal.gender, dob: this.personal.dob, regno: this.personal.regno
     };
 
     this.records.push(record);

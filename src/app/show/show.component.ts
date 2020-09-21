@@ -17,7 +17,8 @@ export class ShowComponent implements OnInit {
     gender: new FormControl('', [Validators.required]),
     dob: new FormControl('', [Validators.required]),
     address: new FormControl('', [Validators.required]),
-    mobile: new FormControl('', [Validators.required]),
+    pmobile: new FormControl('', [Validators.required]),
+    hmobile: new FormControl(''),
     dept: new FormControl('', [Validators.required]),
     doctor: new FormControl('', [Validators.required])
   });
@@ -29,7 +30,7 @@ export class ShowComponent implements OnInit {
   public doctors = ['Dr. Benjamin Richards', 'Dr. Lewis Frank'];
   dataSource: MatTableDataSource<any>;
   public records = [];
-  displayedColumns: string[] = ['regno','name', 'gender', 'dob', 'address','dept', 'doctor', 'edit', 'delete'];
+  displayedColumns: string[] = ['regno','name', 'gender', 'dob', 'address', 'pmobile', 'hmobile', 'dept', 'doctor', 'edit', 'delete'];
   // labels = [
   //   'Reg No:',
   //   'Name',

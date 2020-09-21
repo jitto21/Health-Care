@@ -67,6 +67,34 @@
           </td>
         </ng-container>
 
+        <ng-container matColumnDef="pmobile">
+          <th mat-header-cell *matHeaderCellDef> Personal Number </th>
+          <td mat-cell *matCellDef="let element">
+            <span *ngIf="forEditRows.indexOf(element) != -1">
+              <mat-form-field>
+                <mat-label>Personal Number</mat-label>
+                <input placeholder="10 digit number" type="tel" matInput formControlName="pmobile">
+              </mat-form-field>
+            </span>
+
+            <span *ngIf="!(forEditRows.indexOf(element) != -1)"> {{element.pmobile}} </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="hmobile">
+          <th mat-header-cell *matHeaderCellDef> Office/Home Number </th>
+          <td mat-cell *matCellDef="let element">
+            <span *ngIf="forEditRows.indexOf(element) != -1">
+              <mat-form-field>
+                <mat-label>Office/Home Number</mat-label>
+                <input type="tel" matInput formControlName="hmobile">
+              </mat-form-field>
+            </span>
+
+            <span *ngIf="!(forEditRows.indexOf(element) != -1)"> {{element.hmobile}} </span>
+          </td>
+        </ng-container>
+
         <ng-container matColumnDef="dept">
           <th mat-header-cell *matHeaderCellDef> Department </th>
           <td mat-cell *matCellDef="let element">

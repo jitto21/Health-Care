@@ -14,7 +14,8 @@ export class ContactComponent implements OnInit {
     address2: new FormControl('',[Validators.required]),
     address3: new FormControl('',[Validators.required]),
     pincode: new FormControl('',[Validators.required]),
-    mobile: new FormControl('',[Validators.required])
+    pmobile: new FormControl('',[Validators.required]),
+    hmobile: new FormControl('')
   })
 
   constructor(private recService: RecordService) { }
