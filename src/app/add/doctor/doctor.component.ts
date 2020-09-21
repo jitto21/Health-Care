@@ -41,6 +41,7 @@ export class DoctorComponent implements OnInit {
 
   onSubmit() {
     console.log("doctor: ", this.addForm.value);
-    this.recService.saveRecord(this.addForm.value)
+    this.recService.saveRecord(this.addForm.value);
+    this.addForm.reset();
   }
 }

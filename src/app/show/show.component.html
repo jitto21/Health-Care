@@ -57,13 +57,29 @@
           <th mat-header-cell *matHeaderCellDef> Address </th>
           <td mat-cell *matCellDef="let element">
             <span *ngIf="forEditRows.indexOf(element) != -1">
-              <mat-form-field>
+              <!-- <mat-form-field>
                 <mat-label>Address</mat-label>
-                <input placeholder="Address1, Address2, Address3, PINCODE" type="text" matInput formControlName="address">
-              </mat-form-field>
+                <input type="text" matInput formControlName="address">
+              </mat-form-field> -->
+              <div class="address-wrapper" formArrayName="addresses">
+                <span class="address" *ngFor="let adrs of addresses().controls; let i=index" [formGroupName]="i">
+                  <mat-form-field>
+                    <mat-label>
+                      Address {{ i+1 }}
+                    </mat-label>
+                    <input type="text" matInput formControlName="address">
+                  </mat-form-field>
+                  <div *ngIf="i>2" class="delete-address-btn">
+                    <button mat-icon-button type="button" color="warn" (click)="removeAddress(i)"><mat-icon>remove</mat-icon></button>
+                  </div>
+                </span>
+                <div class="add-address-btn">
+                  <button mat-icon-button type="button" color="primary" (click)="addAddress('')"><mat-icon>add</mat-icon></button>
+                </div>
+              </div>
             </span>
 
-            <span *ngIf="!(forEditRows.indexOf(element) != -1)"> {{element.address}} </span>
+            <span *ngIf="!(forEditRows.indexOf(element) != -1)"> {{element.joinedAdrs}} </span>
           </td>
         </ng-container>
 

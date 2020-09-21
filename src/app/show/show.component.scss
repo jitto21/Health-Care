@@ -76,6 +76,10 @@ $teal-blue: #a5cfe3;
   }
 }
 
+div.add-address-btn, div.delete-address-btn {
+  display: inline-block;
+}
+
 
 // table.md-table td.md-cell {border-left: 1px rgba(0, 0, 0, 0.12) solid; padding: 0 24px !important;}
 
