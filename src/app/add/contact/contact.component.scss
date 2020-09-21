@@ -11,3 +11,12 @@ form {
     }
   }
 }
+
+div.add-address-btn, div.delete-address-btn {
+  display: inline-block;
+}
+
+.width-shrink {
+  display: inline-block;
+  width: fit-content;
+}

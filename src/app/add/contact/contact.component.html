@@ -1,25 +1,22 @@
 <div class="container">
   <form [formGroup]="addForm" (submit)="onNext()">
-    <mat-form-field>
-      <mat-label>
-        Address 1
-      </mat-label>
-      <input type="text" matInput formControlName="address1">
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>
-        Address 2
-      </mat-label>
-      <input type="text" matInput formControlName="address2">
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>
-        Address 3
-      </mat-label>
-      <input type="text" matInput formControlName="address3">
-    </mat-form-field>
+    <div class="address-wrapper" formArrayName="addresses">
+      <span class="address"  [ngClass] = "{'width-shrink': i+1==addresses().controls.length}"
+       *ngFor="let adrs of addresses().controls; let i=index" [formGroupName]="i">
+        <mat-form-field>
+          <mat-label>
+            Address {{ i+1 }}
+          </mat-label>
+          <input type="text" matInput formControlName="address">
+        </mat-form-field>
+        <div *ngIf="i>2" class="delete-address-btn">
+          <button mat-icon-button type="button" color="warn" (click)="removeAddress(i)"><mat-icon>remove</mat-icon></button>
+        </div>
+      </span>
+      <div class="add-address-btn">
+        <button mat-icon-button type="button" color="primary" (click)="addAddress('')"><mat-icon>add</mat-icon></button>
+      </div>
+    </div>
 
     <mat-form-field>
       <mat-label>
