@@ -11,7 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [PersonalComponent, ContactComponent, DoctorComponent],
-  imports: [AddRoutingModule, FormsModule, ReactiveFormsModule, MaterialModule, CommonModule, MatSortModule, BrowserAnimationsModule],
+  imports: [AddRoutingModule, FormsModule, ReactiveFormsModule, MaterialModule, CommonModule],
   providers: [DatePipe]
 })
 

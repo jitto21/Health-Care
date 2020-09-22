@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { AddModule } from './add/add.module';
 import { NavbarComponent } from './navbar/navbar.component';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     BrowserAnimationsModule,
     AddModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]
