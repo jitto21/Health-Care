@@ -4,6 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
+import { MessageDialog } from '../dialog/message.dialog';
 
 @Component({
   selector: 'app-show',
@@ -22,10 +24,9 @@ export class ShowComponent implements OnInit {
   public depts = ['Gastroenterology', 'Cardiology', 'Dental', 'Dermatology', 'Endocrinology', 'ENT', 'Diabetologist', 'General Medicine', 'General Medicine',
     'Nephrology', 'Neurology', 'Obstetrics & Gynecology', 'Oncology & Radiation Oncology', 'Ophthalmology', 'Orthopaedics', 'Pathology', 'Radiology', 'Urology'];
   public doctors = ['Dr. Benjamin Richards', 'Dr. Lewis Frank'];
-  // dataSource: MatTableDataSource<any>;
   public records: any = [];
   dataSource = new MatTableDataSource(this.records);
-  displayedColumns: string[] = ['regno', 'name', 'gender', 'dob', 'address', 'pmobile', 'hmobile', 'dept', 'doctor', 'edit', 'delete'];
+  displayedColumns: string[] = ['regno', 'name', 'gender', 'dob', 'address', 'pincode', 'pmobile', 'hmobile', 'dept', 'doctor', 'edit', 'delete'];
   // labels = [
   //   'Reg No:',
   //   'Name',
@@ -37,7 +38,7 @@ export class ShowComponent implements OnInit {
   // ];
   // displayedColumns1 = [];
 
-  constructor(private recService: RecordService, private _snackBar: MatSnackBar, private fb: FormBuilder) {
+  constructor(private recService: RecordService, private _snackBar: MatSnackBar, private fb: FormBuilder, public dialog: MatDialog) {
     this.editForm = this.fb.group({
       regno: new FormControl('', [Validators.required]),
       name: new FormControl('', [Validators.required]),
@@ -73,19 +74,13 @@ export class ShowComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.records = this.recService.fetchRecords();
-    this.dataSource.data = this.records;
-    setTimeout(() => {
-      this.dataSource.sort = this.sort;
-    })
-    this.joinAddress();
+    this.fetchRecordsandJoinAddress(); //to fetch records and then join addresses
     console.table(this.records);
-    this.recService.editRecListener().subscribe(response => {
+    this.recService.editRecListener().subscribe(response => { //subscribing for edit and delete responses
       this.editMode = false;
       this.forEditRows = [];
       console.table(response.records);
-      this.records = response.records;
-      this.joinAddress();
+      this.fetchRecordsandJoinAddress(); //to fetch records and then join addresses
       let msg = response.op === 'edit' ? 'Updated' : 'Deleted';
       let panel = response.op === 'edit' ? ['mat-toolbar', 'mat-primary'] : ['mat-toolbar', 'mat-warn'];
       this._snackBar.open(`Record ${msg} Successfully`, '', {
@@ -95,6 +90,15 @@ export class ShowComponent implements OnInit {
     })
     // this.transpose();
     // this.fillLabels();
+  }
+
+  fetchRecordsandJoinAddress() {
+    this.records = this.recService.fetchRecords();
+  this.dataSource.data = this.records;
+  setTimeout(() => {
+    this.dataSource.sort = this.sort;
+  })
+  this.joinAddress();
   }
 
   joinAddress() {
@@ -138,10 +142,23 @@ export class ShowComponent implements OnInit {
     this.recService.editRecord(this.editForm.value);
   }
 
+  onDiscard() {
+    const dialogRef = this.dialog.open(MessageDialog, {
+      width: '50vh'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if(result=== 'yes') {
+        this.editMode = false;
+        this.forEditRows = [];
+      }
+    });
+  }
+
   search(value: string) {
     this.dataSource.filter = '';
     this.isFilterChecked = false;
-
     this.searchValue = value.trim().toLocaleLowerCase();
     console.log("Search value: ", this.searchValue);
   }

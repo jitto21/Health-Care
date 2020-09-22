@@ -9,7 +9,7 @@ export class RecordService {
 
   private records = [
     {regno: 847860, name: 'Harry James Potter', gender: 'Male', dob: '1987-02-25', addresses: [{address: '4 Privet Drive'}, {address: 'Surrey'}], pincode: 654322, pmobile: 9876543201, hmobile: '', dept: 'Urology', doctor: 'Dr. Benjamin Richards'},
-    {regno: 756329, name: 'Lilly James Potter', gender: 'Female', dob: '1960-01-15', addresses: [{address: '4 Privet Drive'}, {address: 'Surrey'}], pincode: 654322, pmobile: 9234567801, hmobile: '', dept: 'Cardiology', doctor: 'Dr. Lewis Frank'},
+    {regno: 756329, name: 'Lilly James Potter', gender: 'Female', dob: '1960-01-15', addresses: [{address: '4 Privet Drive'}, {address: 'Surrey'}], pincode: 614322, pmobile: 9234567801, hmobile: '', dept: 'Cardiology', doctor: 'Dr. Lewis Frank'},
   ]
 
   private recSubject = new Subject<any>();
