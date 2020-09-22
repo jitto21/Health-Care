@@ -7,6 +7,7 @@
       <mat-select formControlName="dept">
         <mat-option *ngFor="let dept of depts" [value]="dept">{{ dept }}</mat-option>
       </mat-select>
+      <mat-error *ngIf="addForm.get('dept').hasError('required')">Select a department</mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -16,6 +17,7 @@
       <mat-select formControlName="doctor">
         <mat-option *ngFor="let doc of doctors" [value]="doc" value="">{{ doc }}</mat-option>
       </mat-select>
+      <mat-error *ngIf="addForm.get('doctor').hasError('required')">Select a doctor</mat-error>
     </mat-form-field>
 
     <div class="btn-wrapper">

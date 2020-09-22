@@ -2,6 +2,7 @@ form {
   mat-form-field {
     padding: 0 1rem;
     font-weight: bold;
+    margin-bottom: 0.5rem;
   }
   .btn-wrapper {
     margin-left: 1rem;
@@ -9,5 +10,11 @@ form {
     button {
       font-weight: bold;
     }
+  }
+}
+
+@media(max-width: 864px) {
+  mat-form-field {
+    width: 80%;
   }
 }
