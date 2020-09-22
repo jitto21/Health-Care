@@ -8,6 +8,7 @@
             Address {{ i+1 }}
           </mat-label>
           <input type="text" matInput formControlName="address">
+          <mat-error *ngIf="adrs.invalid">{{getErrorMessage('addresses', i)}}</mat-error>
         </mat-form-field>
         <div *ngIf="i>2" class="delete-address-btn">
           <button mat-icon-button type="button" color="warn" (click)="removeAddress(i)"><mat-icon>remove</mat-icon></button>
@@ -23,6 +24,7 @@
         Pincode
       </mat-label>
       <input type="tel" matInput formControlName="pincode">
+      <mat-error *ngIf="addForm.get('pincode').invalid">{{getErrorMessage('pincode')}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -30,6 +32,7 @@
         Personal Number
       </mat-label>
       <input type="tel" matInput formControlName="pmobile">
+      <mat-error *ngIf="addForm.get('pmobile').invalid">{{getErrorMessage('pmobile')}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -37,6 +40,7 @@
         Office/Home Number
       </mat-label>
       <input type="tel" matInput formControlName="hmobile">
+      <mat-error *ngIf="addForm.get('hmobile').invalid">{{getErrorMessage('hmobile')}}</mat-error>
     </mat-form-field>
 
     <div class="btn-wrapper">

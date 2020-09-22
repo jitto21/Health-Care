@@ -5,6 +5,7 @@
         First Name
       </mat-label>
       <input type="text" matInput formControlName="fname">
+      <mat-error *ngIf="addForm.get('fname').invalid">{{getErrorMessage('fname')}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -12,6 +13,7 @@
         Middle Name
       </mat-label>
       <input type="text" matInput formControlName="mname">
+      <mat-error *ngIf="addForm.get('mname').invalid">{{getErrorMessage('mname')}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -19,6 +21,7 @@
         Last Name
       </mat-label>
       <input type="text" matInput formControlName="lname">
+      <mat-error *ngIf="addForm.get('lname').invalid">{{getErrorMessage('lname')}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -29,6 +32,7 @@
         <mat-option value="Male">Male</mat-option>
         <mat-option value="Female">Female</mat-option>
       </mat-select>
+      <mat-error *ngIf="addForm.get('gender').invalid">{{getErrorMessage('gender')}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -36,6 +40,7 @@
         Date of Birth
       </mat-label>
       <input type="date" matInput formControlName="dob" [max]="maxDate">
+      <mat-error *ngIf="addForm.get('dob').invalid">{{getErrorMessage('dob')}}</mat-error>
     </mat-form-field>
 
     <div class="btn-wrapper">

@@ -28,3 +28,9 @@ form {
     margin:0;
   }
 }
+
+@media(max-width: 864px) {
+  mat-form-field {
+    width: 80%;
+  }
+}

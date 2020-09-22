@@ -34,6 +34,8 @@ export class RecordService {
     this.saveToSession(this.records, 'records');
     this.deleteFromSession('personal');
     this.deleteFromSession('contact');
+    this.personal = {};
+    this.contact = {};
     this._snackBar.open('New Record Added!', '', {
       duration: 3000,
       panelClass: ['mat-toolbar', 'mat-primary']
