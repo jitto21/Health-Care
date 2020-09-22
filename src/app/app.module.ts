@@ -11,13 +11,16 @@ import { MaterialModule } from './material.module';
 import { AddModule } from './add/add.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatSortModule } from '@angular/material/sort';
+import { MessageDialog } from './dialog/message.dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddComponent,
     ShowComponent,
-    NavbarComponent
+    NavbarComponent,
+    MessageDialog
   ],
   imports: [
     BrowserModule,
@@ -30,6 +33,7 @@ import { MatSortModule } from '@angular/material/sort';
     MatSortModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [MessageDialog]
 })
 export class AppModule { }

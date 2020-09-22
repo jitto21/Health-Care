@@ -9,6 +9,9 @@ $teal-blue: #a5cfe3;
   .search-box {
     width: fit-content;
     margin: 1rem 0 0 1rem;
+    mat-form-field {
+      margin-right: 0.6rem;
+    }
   }
 
   .mat-table {
