@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { RecordService } from '../service/record.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-show',
@@ -13,13 +14,15 @@ export class ShowComponent implements OnInit {
 
   editForm: FormGroup;
 
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
   editMode: boolean = false;
   forEditRows: any = [];
   public depts = ['Gastroenterology', 'Cardiology', 'Dental', 'Dermatology', 'Endocrinology', 'ENT', 'Diabetologist', 'General Medicine', 'General Medicine',
     'Nephrology', 'Neurology', 'Obstetrics & Gynecology', 'Oncology & Radiation Oncology', 'Ophthalmology', 'Orthopaedics', 'Pathology', 'Radiology', 'Urology'];
   public doctors = ['Dr. Benjamin Richards', 'Dr. Lewis Frank'];
-  dataSource: MatTableDataSource<any>;
+  // dataSource: MatTableDataSource<any>;
   public records: any = [];
+  dataSource = new MatTableDataSource(this.records);
   displayedColumns: string[] = ['regno', 'name', 'gender', 'dob', 'address', 'pmobile', 'hmobile', 'dept', 'doctor', 'edit', 'delete'];
   // labels = [
   //   'Reg No:',
@@ -69,6 +72,10 @@ export class ShowComponent implements OnInit {
 
   ngOnInit(): void {
     this.records = this.recService.fetchRecords();
+    this.dataSource.data = this.records;
+    setTimeout(() => {
+      this.dataSource.sort = this.sort;
+    })
     this.joinAddress();
     console.table(this.records);
     this.recService.editRecListener().subscribe(response => {
