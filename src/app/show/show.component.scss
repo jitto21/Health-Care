@@ -6,6 +6,11 @@ $teal-blue: #a5cfe3;
   display: block;
   overflow-x: auto;
 
+  .search-box {
+    width: fit-content;
+    margin: 1rem 0 0 1rem;
+  }
+
   .mat-table {
     width: 100%;
     max-width: 100%;
@@ -78,6 +83,10 @@ $teal-blue: #a5cfe3;
 
 div.add-address-btn, div.delete-address-btn {
   display: inline-block;
+}
+
+.search-color {
+  background-color: yellow;
 }
 
 

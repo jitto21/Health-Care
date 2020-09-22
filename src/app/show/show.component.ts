@@ -17,6 +17,8 @@ export class ShowComponent implements OnInit {
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   editMode: boolean = false;
   forEditRows: any = [];
+  searchValue: string = null;
+  isFilterChecked: boolean;
   public depts = ['Gastroenterology', 'Cardiology', 'Dental', 'Dermatology', 'Endocrinology', 'ENT', 'Diabetologist', 'General Medicine', 'General Medicine',
     'Nephrology', 'Neurology', 'Obstetrics & Gynecology', 'Oncology & Radiation Oncology', 'Ophthalmology', 'Orthopaedics', 'Pathology', 'Radiology', 'Urology'];
   public doctors = ['Dr. Benjamin Richards', 'Dr. Lewis Frank'];
@@ -134,6 +136,19 @@ export class ShowComponent implements OnInit {
   onSaveForm() {
     console.log("FORM: ", this.editForm.value);
     this.recService.editRecord(this.editForm.value);
+  }
+
+  search(value: string) {
+    this.dataSource.filter = '';
+    this.isFilterChecked = false;
+
+    this.searchValue = value.trim().toLocaleLowerCase();
+    console.log("Search value: ", this.searchValue);
+  }
+
+  onFilterData(checked: boolean) {
+    console.log("Checking: ", checked);
+    this.dataSource.filter = checked ? this.searchValue : null;
   }
 
   // transpose() {
