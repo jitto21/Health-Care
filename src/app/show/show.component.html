@@ -1,11 +1,35 @@
 <div class="container">
   <div class="table" *ngIf="records.length != 0; else no_content">
 
+    <!--SEARCH BOX-->
+
     <div class="search-box" *ngIf="!editMode">
       <mat-form-field appearance="fill">
         <mat-label><mat-icon>search</mat-icon></mat-label>
         <input (keyup)="search($event.target.value)" matInput type="text">
       </mat-form-field>
+
+      <!--MATCH COLUMN-->
+
+      <mat-form-field appearance="fill">
+        <mat-label>Match</mat-label>
+        <mat-select  [formControl]="matchSelect">
+          <mat-option default value="ALL">ALL</mat-option>
+          <mat-option value="REG NO:">REG NO:</mat-option>
+          <mat-option value="NAME">NAME</mat-option>
+          <mat-option value="GENDER">GENDER</mat-option>
+          <mat-option value="D.O.B">D.O.B</mat-option>
+          <mat-option value="ADDRESS">ADDRESS</mat-option>
+          <mat-option value="PINCODE">PINCODE</mat-option>
+          <mat-option value="PERSONAL NUMBER">PERSONAL NUMBER</mat-option>
+          <mat-option value="HOME/OFFICE NUMBER">HOME/OFFICE NUMBER</mat-option>
+          <mat-option value="DEPARTMENT">DEPARTMENT</mat-option>
+          <mat-option value="DOCTOR">DOCTOR</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+            <!--FILTER CHECKBOX-->
+
       <mat-checkbox [(ngModel)]="isFilterChecked" [disabled]="!searchValue" color="primary" (change)="onFilterData($event.checked)">
         Filter Data
       </mat-checkbox>
@@ -17,7 +41,7 @@
         <ng-container matColumnDef="regno">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Reg No: </th>
           <td mat-cell *matCellDef="let element">
-            <span [ngClass]="{'search-color': element.regno.toString().includes(searchValue) && searchValue!=''}">
+            <span [ngClass]="{'search-color': element.regno.toString().includes(filterValues['reg no:']) && filterValues['reg no:']!=''}">
               {{element.regno}}
             </span>
           </td>
@@ -33,7 +57,7 @@
               </mat-form-field>
             </span>
 
-            <span [ngClass]="{'search-color': element.name.toLocaleLowerCase().includes(searchValue) && searchValue!=''}"
+            <span [ngClass]="{'search-color': element.name.toLocaleLowerCase().includes(filterValues['name']) && filterValues['name']!=''}"
             *ngIf="!(forEditRows.indexOf(element) != -1)"> {{element.name}} </span>
           </td>
         </ng-container>
@@ -51,7 +75,7 @@
               </mat-form-field>
             </span>
 
-            <span [ngClass]="{'search-color': element.gender.toLocaleLowerCase().includes(searchValue) && searchValue!=''}"
+            <span [ngClass]="{'search-color': element.gender.toLocaleLowerCase().includes(filterValues['gender']) && filterValues['gender']!=''}"
             *ngIf="!(forEditRows.indexOf(element) != -1)">{{element.gender}}</span>
           </td>
         </ng-container>
@@ -66,7 +90,7 @@
               </mat-form-field>
             </span>
 
-            <span [ngClass]="{'search-color': element.dob.toLocaleLowerCase().includes(searchValue) && searchValue!=''}"
+            <span [ngClass]="{'search-color': element.dob.toLocaleLowerCase().includes(filterValues['d.o.b']) && filterValues['d.o.b']!=''}"
             *ngIf="!(forEditRows.indexOf(element) != -1)"> {{element.dob}}</span>
           </td>
         </ng-container>
@@ -93,7 +117,7 @@
               </div>
             </span>
 
-            <span [ngClass]="{'search-color': element.joinedAdrs.toLocaleLowerCase().includes(searchValue) && searchValue!=''}"
+            <span [ngClass]="{'search-color': element.joinedAdrs.toLocaleLowerCase().includes(filterValues['address']) && filterValues['address']!=''}"
             *ngIf="!(forEditRows.indexOf(element) != -1)"> {{element.joinedAdrs}} </span>
           </td>
         </ng-container>
@@ -108,7 +132,7 @@
               </mat-form-field>
             </span>
 
-            <span [ngClass]="{'search-color': element.pincode.toString().includes(searchValue) && searchValue!=''}"
+            <span [ngClass]="{'search-color': element.pincode.toString().includes(filterValues['pincode']) && filterValues['pincode']!=''}"
             *ngIf="!(forEditRows.indexOf(element) != -1)"> {{element.pincode}} </span>
           </td>
         </ng-container>
@@ -123,7 +147,7 @@
               </mat-form-field>
             </span>
 
-            <span [ngClass]="{'search-color': element.pmobile.toString().includes(searchValue) && searchValue!=''}"
+            <span [ngClass]="{'search-color': element.pmobile.toString().includes(filterValues['personal number']) && filterValues['personal number']!=''}"
             *ngIf="!(forEditRows.indexOf(element) != -1)"> {{element.pmobile}} </span>
           </td>
         </ng-container>
@@ -138,7 +162,7 @@
               </mat-form-field>
             </span>
 
-            <span [ngClass]="{'search-color': element.hmobile.toString().includes(searchValue) && searchValue!=''}"
+            <span [ngClass]="{'search-color': element.hmobile.toString().includes(filterValues['home/office number']) && filterValues['home/office number']!=''}"
             *ngIf="!(forEditRows.indexOf(element) != -1)"> {{element.hmobile}} </span>
           </td>
         </ng-container>
@@ -155,7 +179,7 @@
               </mat-form-field>
             </span>
 
-            <span [ngClass]="{'search-color': element.dept.toLocaleLowerCase().includes(searchValue) && searchValue!=''}"
+            <span [ngClass]="{'search-color': element.dept.toLocaleLowerCase().includes(filterValues['department']) && filterValues['department']!=''}"
             *ngIf="!(forEditRows.indexOf(element) != -1)">{{element.dept}}</span>
           </td>
         </ng-container>
@@ -172,7 +196,7 @@
               </mat-form-field>
             </span>
 
-            <span [ngClass]="{'search-color': element.doctor.toLocaleLowerCase().includes(searchValue) && searchValue!=''}"
+            <span [ngClass]="{'search-color': element.doctor.toLocaleLowerCase().includes(filterValues['doctor']) && filterValues['doctor']!=''}"
             *ngIf="!(forEditRows.indexOf(element) != -1)">{{element.doctor}}</span>
           </td>
         </ng-container>
