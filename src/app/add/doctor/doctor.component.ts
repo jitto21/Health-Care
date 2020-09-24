@@ -9,10 +9,8 @@ import { RecordService } from 'src/app/service/record.service';
 })
 export class DoctorComponent implements OnInit {
 
-  public depts = [ 'Cardiology', 'Dental', 'Dermatology', 'Diabetologist', 'Endocrinology', 'ENT', 'Gastroenterology', 'General Medicine', 'General Medicine',
-  'Nephrology', 'Neurology', 'Obstetrics & Gynecology', 'Oncology & Radiation Oncology', 'Ophthalmology', 'Orthopaedics', 'Pathology', 'Radiology', 'Urology'];
-
-  public doctors = ['Dr. Benjamin Richards', 'Dr. Lewis Frank'];
+  public depts = [];
+  public doctors = [];
   personal = {}
   contact = {}
   emptyP: boolean = false;
@@ -26,6 +24,8 @@ export class DoctorComponent implements OnInit {
   constructor(private recService: RecordService) { }
 
   ngOnInit(): void {
+    this.depts = this.recService.fetchDocsandDepts().depts;
+    this.doctors = this.recService.fetchDocsandDepts().doctors;
     this.personal = this.recService.onFetchPersonal();
     this.contact = this.recService.onFetchContact();
     console.log(this.personal, this.contact);
