@@ -12,7 +12,7 @@ export class PersonalComponent implements OnInit {
 
   maxDate;
   addForm: FormGroup
-
+  loginInput = new FormControl('');
   constructor(private recService: RecordService, private datePipe: DatePipe) {
     this.maxDate = this.datePipe.transform(new Date(), "yyyy-MM-dd");
 
@@ -36,6 +36,11 @@ export class PersonalComponent implements OnInit {
   onNext() {
     console.log("personal: ", this.addForm.value);
     this.recService.onSavePersonal(this.addForm.value);
+  }
+
+  onLogin() {
+    console.log("loginInput", this.loginInput.value);
+    this.recService.onLogin(this.loginInput.value);
   }
 
   getErrorMessage(control: string) {
