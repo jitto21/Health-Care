@@ -18,6 +18,9 @@ export class RecordService {
   private recSubject = new Subject<any>();
   private personal: any = {};
   private contact: any = {};
+  private depts = ['Gastroenterology', 'Cardiology', 'Dental', 'Dermatology', 'Endocrinology', 'ENT', 'Diabetologist', 'General Medicine', 'General Medicine',
+    'Nephrology', 'Neurology', 'Obstetrics & Gynecology', 'Oncology & Radiation Oncology', 'Ophthalmology', 'Orthopaedics', 'Pathology', 'Radiology', 'Urology'];
+  private doctors = ['Dr. Benjamin Richards', 'Dr. Lewis Frank'];
 
   constructor(private router: Router, private _snackBar: MatSnackBar) { }
 
@@ -91,6 +94,13 @@ export class RecordService {
     return this.contact;
   }
 
+  fetchDocsandDepts() {
+    return {
+      depts: this.depts,
+      doctors: this.doctors
+    }
+  }
+
   //SESSION Storage
 
   saveToSession(obj, name) {
@@ -110,5 +120,72 @@ export class RecordService {
     this.contact = JSON.parse(sessionStorage.getItem('contact'));
     if (sessionStorage.getItem('records'))
       this.records = JSON.parse(sessionStorage.getItem('records'))
+  }
+
+  //Filters
+
+  createFilter(): (data: any, filter: string) => boolean {
+    let filterFunction = function (data, filter): boolean {
+      let searchTerms = JSON.parse(filter);
+      console.log("createFilter");
+      console.log("************");
+      console.log(data);
+      console.log(searchTerms);
+      console.log(`%c ${data.name}`, 'color: yellow')
+      console.log(`${data['name']}: `, data['name'].toLowerCase().indexOf(searchTerms['name']) !== -1)
+      console.log(`${data['regno']}: `, data['regno'].toString().toLowerCase().indexOf(searchTerms['reg no:']) !== -1)
+      console.log(`${data['gender']}: `, data['gender'].toLowerCase().indexOf(searchTerms['gender']) !== -1)
+      console.log(`${data['dob']}: `, data['dob'].toLowerCase().indexOf(searchTerms['d.o.b']) !== -1)
+      console.log(`${data['joinedAdrs']}: `, data['joinedAdrs'].toLowerCase().indexOf(searchTerms['address']) !== -1)
+      console.log(`${data['pincode']}: `, data['pincode'].toString().toLowerCase().indexOf(searchTerms['pincode']) !== -1)
+      console.log(`${data['pmobile']}: `, data['pmobile'].toString().toLowerCase().indexOf(searchTerms['personal number']) !== -1)
+      console.log(`${data['hmobile']}: `, data['hmobile'].toString().toLowerCase().indexOf(searchTerms['home/office number']) !== -1)
+      console.log(`${data['doctor']}: `, data['doctor'].toLowerCase().indexOf(searchTerms['doctor']) !== -1);
+
+      return data['name'].toLowerCase().indexOf(searchTerms['name']) !== -1
+        && data['regno'].toString().toLowerCase().indexOf(searchTerms['reg no:']) !== -1
+        && data['gender'].toLowerCase().indexOf(searchTerms['gender']) !== -1
+        && data['dob'].toLowerCase().indexOf(searchTerms['d.o.b']) !== -1
+        && data['joinedAdrs'].toLowerCase().indexOf(searchTerms['address']) !== -1
+        && data['pincode'].toString().toLowerCase().indexOf(searchTerms['pincode']) !== -1
+        && data['pmobile'].toString().toLowerCase().indexOf(searchTerms['personal number']) !== -1
+        && data['hmobile'].toString().toLowerCase().indexOf(searchTerms['home/office number']) !== -1
+        && data['dept'].toLowerCase().indexOf(searchTerms['department']) !== -1
+        && data['doctor'].toLowerCase().indexOf(searchTerms['doctor']) !== -1
+    }
+    return filterFunction;
+  }
+
+  createFilterAll(): (data: any, filter: string) => boolean {
+    let filterFunction = function (data, filter): boolean {
+      let searchTerms = JSON.parse(filter);
+      console.log("createFilterAll");
+      console.log("***************")
+      console.log(data);
+      console.log(searchTerms);
+      console.log(`%c ${data.name}`, 'color: yellow')
+      console.log(`${data['name']}: `, data['name'].toLowerCase().indexOf(searchTerms['name']) !== -1)
+      console.log(`${data['regno']}: `, data['regno'].toString().toLowerCase().indexOf(searchTerms['reg no:']) !== -1)
+      console.log(`${data['gender']}: `, data['gender'].toLowerCase().indexOf(searchTerms['gender']) !== -1)
+      console.log(`${data['dob']}: `, data['dob'].toLowerCase().indexOf(searchTerms['d.o.b']) !== -1)
+      console.log(`${data['joinedAdrs']}: `, data['joinedAdrs'].toLowerCase().indexOf(searchTerms['address']) !== -1)
+      console.log(`${data['pincode']}: `, data['pincode'].toString().toLowerCase().indexOf(searchTerms['pincode']) !== -1)
+      console.log(`${data['pmobile']}: `, data['pmobile'].toString().toLowerCase().indexOf(searchTerms['personal number']) !== -1)
+      console.log(`${data['hmobile']}: `, data['hmobile'].toString().toLowerCase().indexOf(searchTerms['home/office number']) !== -1)
+      console.log(`${data['doctor']}: `, data['doctor'].toLowerCase().indexOf(searchTerms['doctor']) !== -1);
+
+      return data['name'].toLowerCase().indexOf(searchTerms['name']) !== -1
+        || data['regno'].toString().toLowerCase().indexOf(searchTerms['reg no:']) !== -1
+        || data['gender'].toLowerCase().indexOf(searchTerms['gender']) !== -1
+        || data['dob'].toLowerCase().indexOf(searchTerms['d.o.b']) !== -1
+        || data['joinedAdrs'].toLowerCase().indexOf(searchTerms['address']) !== -1
+        || data['pincode'].toString().toLowerCase().indexOf(searchTerms['pincode']) !== -1
+        || data['pmobile'].toString().toLowerCase().indexOf(searchTerms['personal number']) !== -1
+        || data['hmobile'].toString().toLowerCase().indexOf(searchTerms['home/office number']) !== -1
+        || data['dept'].toLowerCase().indexOf(searchTerms['department']) !== -1
+        || data['doctor'].toLowerCase().indexOf(searchTerms['doctor']) !== -1;
+
+    }
+    return filterFunction;
   }
 }
