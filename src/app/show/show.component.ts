@@ -159,10 +159,15 @@ export class ShowComponent implements OnInit {
   onEdit(record) {
     console.log(record);
     this.editMode = true;
+    /* START- resetting filters  */
+
     this.searchValue = '';
     Object.keys(this.filterValues).forEach(filterPpty => {
       this.filterValues[filterPpty] = '';
     })
+    this.dataSource.filter = '';
+
+    /* END */
     this.forEditRows = [record];
     let index = this.forEditRows.indexOf(record);
     console.log("INDEX: ", index);
@@ -185,9 +190,8 @@ export class ShowComponent implements OnInit {
 
   /*saving the Edited Form*/
 
-  onSaveForm() {
-    console.log("FORM: ", this.editForm.value);
-    this.recService.editRecord(this.editForm.value);
+  onSaveForm(orgRecord) {
+    this.recService.editRecord(this.editForm.value, orgRecord);
   }
 
   //discard changes on Edit

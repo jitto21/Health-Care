@@ -22,7 +22,7 @@
 
     <div class="btn-wrapper">
       <button mat-flat-button color="primary" type="submit"
-      [disabled]="(emptyP || emptyC) || addForm.invalid">Submit</button>
+      [disabled]="((emptyP || emptyC) || addForm.invalid) || !(loginMode)">Submit</button>
     </div>
   </form>
 

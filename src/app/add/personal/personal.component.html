@@ -48,4 +48,12 @@
     </div>
 
   </form>
+  <div class="login-mode">
+    <p>Already Have An Account ?</p>
+    <mat-form-field>
+      <mat-label>Reg No:</mat-label>
+      <input matInput type="tel" [formControl]="loginInput">
+    </mat-form-field>
+    <button color="primary" mat-flat-button [disabled]="loginInput.value == ''" type="button" (click)="onLogin()">Login</button>
+  </div>
 </div>

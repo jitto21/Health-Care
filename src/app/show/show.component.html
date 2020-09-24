@@ -37,7 +37,7 @@
 
     <table *ngIf="dataSource.data" mat-table [dataSource]="dataSource" matSort>
 
-      <form [formGroup]="editForm" (submit)="onSaveForm()">
+      <form [formGroup]="editForm">
         <ng-container matColumnDef="regno">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Reg No: </th>
           <td mat-cell *matCellDef="let element">
@@ -209,7 +209,7 @@
             <button *ngIf="!(forEditRows.indexOf(element) != -1)" mat-icon-button color="primary" (click)="onEdit(element)" type="button">
               <mat-icon>edit</mat-icon>
             </button>
-            <button [disabled]="editForm.invalid" *ngIf="forEditRows.indexOf(element) != -1" mat-icon-button color="primary" (click)="onSaveForm()" type="submit">
+            <button [disabled]="editForm.invalid" *ngIf="forEditRows.indexOf(element) != -1" mat-icon-button color="primary" (click)="onSaveForm(element)" type="submit">
               <mat-icon>save</mat-icon>
             </button>
           </td>
