@@ -55,8 +55,6 @@ $teal-blue: #a5cfe3;
   .mobile-table {
     td.mat-cell {
       border-right: 0.5px solid rgba(0, 0, 0, 0.226);
-      &:not(:first-child) {
-      }
     }
     td.mat-cell:nth-child(1) {
       font-weight: bold;
