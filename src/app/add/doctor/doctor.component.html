@@ -22,11 +22,11 @@
 
     <div class="btn-wrapper">
       <button mat-flat-button color="primary" type="submit"
-      [disabled]="((emptyP || emptyC) || addForm.invalid) || !(loginMode)">Submit</button>
+      [disabled]="onCheckDisable()">Submit</button>
     </div>
   </form>
 
-  <div *ngIf="emptyP || emptyC" class="alert">
+  <div *ngIf="onDisplayAlert()" class="alert">
     <p>*Complete Personal and Contact Information</p>
   </div>
 </div>
