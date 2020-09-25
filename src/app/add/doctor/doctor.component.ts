@@ -35,14 +35,38 @@ export class DoctorComponent implements OnInit {
     this.personal = this.recService.onFetchPersonal();
     this.contact = this.recService.onFetchContact();
     console.log(this.personal, this.contact);
-    if((this.personal==null || Object.keys(this.personal).length == 0) && !this.loginMode) {
+    if((this.personal==null || Object.keys(this.personal).length == 0)) {
       console.log("personal details empty")
       this.emptyP = true;
     }
-    if((this.contact==null || Object.keys(this.contact).length == 0) && !this.loginMode) {
+    if((this.contact==null || Object.keys(this.contact).length == 0)) {
       console.log("contact details empty")
       this.emptyC = true;
     }
+  }
+
+  onCheckDisable(): boolean {
+    if(this.loginMode && this.addForm.valid) {
+      return false; //enable if in Login Mode
+    }
+    if((this.emptyC || this.emptyP)) {
+      return true; //disable if contact or personal info is empty
+    }
+    if(this.addForm.valid) {
+      console.log("form VALID")
+      return false;
+    }
+    return true;
+  }
+
+  onDisplayAlert() {
+    if(this.loginMode) {
+      return false; //enable if in Login Mode
+    }
+    if((this.emptyC || this.emptyP)) {
+      return true; //disable if contact or personal info is empty
+    }
+    return false;
   }
 
   onSubmit() {
