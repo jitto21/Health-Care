@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RecordService } from '../service/record.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray, AbstractControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { MessageDialog } from '../dialog/message.dialog';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-show',
@@ -29,6 +30,8 @@ export class ShowComponent implements OnInit {
   public records: any = [];
   dataSource = new MatTableDataSource(this.records);
   displayedColumns: string[] = ['regno', 'name', 'gender', 'dob', 'address', 'pincode', 'pmobile', 'hmobile', 'dept', 'doctor', 'edit', 'delete'];
+  maxDate: any;
+  regExp = new RegExp("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$");
   // labels = [
   //   'Reg No:',
   //   'Name',
@@ -40,19 +43,21 @@ export class ShowComponent implements OnInit {
   // ];
   // displayedColumns1 = [];
 
-  constructor(private recService: RecordService, private _snackBar: MatSnackBar, private fb: FormBuilder, public dialog: MatDialog) {
+  constructor(private recService: RecordService, private _snackBar: MatSnackBar, private fb: FormBuilder, public dialog: MatDialog,
+    private datePipe: DatePipe) {
     this.editForm = this.fb.group({
       regno: new FormControl('', [Validators.required]),
-      name: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required, Validators.pattern(this.regExp)]),
       gender: new FormControl('', [Validators.required]),
-      dob: new FormControl('', [Validators.required]),
+      dob: new FormControl('', [Validators.required, this.validateDob.bind(this)]),
       addresses: this.fb.array([], [Validators.required]),
-      pincode: new FormControl('', [Validators.required]),
-      pmobile: new FormControl('', [Validators.required]),
-      hmobile: new FormControl(''),
+      pincode: new FormControl('', [Validators.required, Validators.maxLength(6), Validators.minLength(6), Validators.pattern('^[1-9]{1}[0-9]{5}$')]),
+      pmobile: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern('^[1-9]{1}[0-9]{9}$')]),
+      hmobile: new FormControl('', [Validators.maxLength(10), Validators.minLength(10), Validators.pattern('^[1-9]{1}[0-9]{9}$')]),
       dept: new FormControl('', [Validators.required]),
       doctor: new FormControl('', [Validators.required])
     })
+    this.maxDate = this.datePipe.transform(new Date(), "yyyy-MM-dd");
 
     this.dataSource.filterPredicate = this.recService.createFilterAll();
   }
@@ -231,6 +236,54 @@ export class ShowComponent implements OnInit {
     this.isFilterChecked = checked;
     console.log(JSON.stringify(this.filterValues));
     this.dataSource.filter = this.isFilterChecked ? JSON.stringify(this.filterValues) : '';
+  }
+
+  validateDob(control: AbstractControl): { [key: string]: any } | null {
+    if (control.value > this.maxDate) {
+      return { 'dobInvalid': true };
+    }
+    return null;
+  }
+
+  getErrorMessage(control: string, index?: number) {
+    console.log("Error in ", control);
+    let con = <FormArray>this.editForm.controls['addresses'];
+    if (this.editForm.get(control).hasError('required') || con.controls[index]) {
+      console.log("Error in Required", control);
+      return 'You must enter a value';
+    }
+    if (this.editForm.get(control).hasError('minlength') || this.editForm.get(control).hasError('maxlength')) {
+      console.log("Error in minLen or MaxLen", control);
+      switch (control) {
+        case 'pincode': return 'You must enter a 6 digit number';
+        case 'pmobile': return 'You must enter a 10 digit number';
+        case 'hmobile': return 'You must enter a 10 digit number';
+      }
+    }
+    if (this.editForm.get(control).hasError('pattern')) {
+      console.log("Error in Pattern", control);
+      switch (control) {
+        case 'name': return 'You must enter a valid name';
+        case 'address': return 'You must enter a valid address';
+        case 'pincode': return 'You must enter a valid pincode';
+        case 'pmobile': return 'You must enter a valid mobile number';
+        case 'hmobile': return 'You must enter a valid mobile number';
+      }
+    }
+    if (this.editForm.get(control).hasError('dobInvalid')) {
+      return 'You must enter a valid D.O.B';
+    }
+  }
+
+  highlightRow(row) {
+    if(this.forEditRows.indexOf(row) != -1 && this.editForm.invalid) {
+      return { background: '#fcede7' }
+    }
+    if (this.forEditRows.indexOf(row) != -1) {
+      return { background: '#e7f6fc' }
+    }
+    return {}
+    // forEditRows.indexOf(row) != -1 && editForm.valid ? {'background-color': '#e7f6fc'}: {'background-color': '#FFB6C1'}
   }
 
   // transpose() {

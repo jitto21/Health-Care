@@ -54,6 +54,7 @@
               <mat-form-field>
                 <mat-label>Name</mat-label>
                 <input formControlName="name" matInput type="text">
+                <mat-error *ngIf="editForm.get('name').invalid">{{getErrorMessage('name')}}</mat-error>
               </mat-form-field>
             </span>
 
@@ -72,6 +73,7 @@
                   <mat-option value="Male">Male</mat-option>
                   <mat-option value="Female">Female</mat-option>
                 </mat-select>
+                <mat-error *ngIf="editForm.get('gender').invalid">{{getErrorMessage('gender')}}</mat-error>
               </mat-form-field>
             </span>
 
@@ -87,6 +89,7 @@
               <mat-form-field>
                 <mat-label>Date of Birth</mat-label>
                 <input type="date" matInput formControlName="dob">
+                <mat-error *ngIf="editForm.get('dob').invalid">{{getErrorMessage('dob')}}</mat-error>
               </mat-form-field>
             </span>
 
@@ -106,6 +109,7 @@
                       Address {{ i+1 }}
                     </mat-label>
                     <input type="text" matInput formControlName="address">
+                    <mat-error *ngIf="adrs.invalid">{{getErrorMessage('addresses', i)}}</mat-error>
                   </mat-form-field>
                   <div *ngIf="i>2" class="delete-address-btn">
                     <button mat-icon-button type="button" color="warn" (click)="removeAddress(i)"><mat-icon>remove</mat-icon></button>
@@ -129,6 +133,7 @@
               <mat-form-field>
                 <mat-label>Pincode</mat-label>
                 <input placeholder="6 digit number" type="tel" matInput formControlName="pincode">
+                <mat-error *ngIf="editForm.get('pincode').invalid">{{getErrorMessage('pincode')}}</mat-error>
               </mat-form-field>
             </span>
 
@@ -144,6 +149,7 @@
               <mat-form-field>
                 <mat-label>Personal Number</mat-label>
                 <input placeholder="10 digit number" type="tel" matInput formControlName="pmobile">
+                <mat-error *ngIf="editForm.get('pmobile').invalid">{{getErrorMessage('pmobile')}}</mat-error>
               </mat-form-field>
             </span>
 
@@ -159,6 +165,7 @@
               <mat-form-field>
                 <mat-label>Office/Home Number</mat-label>
                 <input type="tel" matInput formControlName="hmobile">
+                <mat-error *ngIf="editForm.get('hmobile').invalid">{{getErrorMessage('hmobile')}}</mat-error>
               </mat-form-field>
             </span>
 
@@ -176,6 +183,7 @@
                 <mat-select formControlName="dept">
                   <mat-option *ngFor="let dept of depts" [value]="dept">{{ dept }}</mat-option>
                 </mat-select>
+                <mat-error *ngIf="editForm.get('dept').hasError('required')">Select a department</mat-error>
               </mat-form-field>
             </span>
 
@@ -193,6 +201,7 @@
                 <mat-select formControlName="doctor">
                   <mat-option *ngFor="let doc of doctors" [value]="doc" value="">{{ doc }}</mat-option>
                 </mat-select>
+                <mat-error *ngIf="editForm.get('doctor').hasError('required')">Select a doctor</mat-error>
               </mat-form-field>
             </span>
 
@@ -228,7 +237,9 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [style.background]="forEditRows.indexOf(row) != -1 ? '#e7f6fc' : ''"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+        [ngStyle]="highlightRow(row)"
+        ></tr>
       </form>
     </table>
 
