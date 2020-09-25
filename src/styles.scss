@@ -13,7 +13,7 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $healthcare-primary: mat-palette($mat-teal);
-$healthcare-accent: mat-palette($mat-red, A200, A100, A400);
+$healthcare-accent: mat-palette($mat-grey, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $healthcare-warn: mat-palette($mat-red);

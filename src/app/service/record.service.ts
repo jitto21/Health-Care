@@ -10,11 +10,12 @@ export class RecordService {
   private records = [
     { regno: 847860, name: 'Harry James Potter', gender: 'Male', dob: '1987-02-25', addresses: [{ address: '4 Privet Drive' }, { address: 'Surrey' }], pincode: 654322, pmobile: 9876543201, hmobile: '', dept: 'Urology', doctor: 'Dr. Benjamin Richards' },
     { regno: 756329, name: 'Lilly James Potter', gender: 'Female', dob: '1960-01-15', addresses: [{ address: '4 Privet Drive' }, { address: 'Surrey' }], pincode: 614322, pmobile: 9234567801, hmobile: '', dept: 'Cardiology', doctor: 'Dr. Lewis Frank' },
-    { dept: 'Oncology & Radiation Oncology', doctor: 'Dr. Lewis Frank', name: 'Morgan Torres', addresses: [{ address: 'Sunshine Villa' }, { address: 'Alasca' }, { address: 'Washington' }], pincode: '988223', pmobile: 8745735801, hmobile: 4692645239, gender: 'Female', dob: '1985-04-02', regno: 320071 },
-    { dept: 'Pathology', doctor: 'Dr. Lewis Frank', name: 'Alex Telles', addresses: [{ address: '43 Avenue' }, { address: 'North Kannur' }, { address: 'Kerala' }], pincode: '456123', pmobile: 9988663355, hmobile: 4693248212, gender: 'Male', dob: '1990-12-08', regno: 865974 },
-    { dept: 'Orthopaedics', doctor: 'Dr. Benjamin Richards', name: 'Ronald Thomas Weasely', addresses: [{ address: 'Tree House' }, { address: 'Marriot' }, { address: 'UK' }], pincode: '935231', pmobile: 9977668651, hmobile: 8767343729, gender: 'Male', dob: '1989-07-04', regno: 509625 }
+    { dept: 'Oncology & Radiation Oncology', doctor: 'Dr. Lewis Frank', name: 'Morgan Torres', addresses: [{ address: 'Sunshine Villa' }, { address: 'Alasca' }, { address: 'Washington' }], pincode: 988223, pmobile: 8745735801, hmobile: 4692645239, gender: 'Female', dob: '1985-04-02', regno: 320071 },
+    { dept: 'Pathology', doctor: 'Dr. Lewis Frank', name: 'Alex Telles', addresses: [{ address: '43 Avenue' }, { address: 'North Kannur' }, { address: 'Kerala' }], pincode: 456123, pmobile: 9988663355, hmobile: 4693248212, gender: 'Male', dob: '1990-12-08', regno: 865974 },
+    { dept: 'Orthopaedics', doctor: 'Dr. Benjamin Richards', name: 'Ronald Thomas Weasely', addresses: [{ address: 'Tree House' }, { address: 'Marriot' }, { address: 'UK' }], pincode: 935231, pmobile: 9977668651, hmobile: 8767343729, gender: 'Male', dob: '1989-07-04', regno: 509625 }
   ]
 
+  private loginFound: boolean = false;
   private existing: boolean = false;
   private loginRecord: any = {};
   private recSubject = new Subject<any>();
@@ -34,8 +35,8 @@ export class RecordService {
     let record = (this.loginRecord == null || Object.keys(this.loginRecord).length == 0) ?
       {
         ...doctor, name: `${this.personal.fname} ${this.personal.mname} ${this.personal.lname}`,
-        addresses: this.contact.addresses, pincode: this.contact.pincode, pmobile: +this.contact.pmobile, hmobile: +this.contact.hmobile,
-        gender: this.personal.gender, dob: this.personal.dob, regno: this.personal.regno
+        addresses: this.contact.addresses, pincode: +this.contact.pincode, pmobile: +this.contact.pmobile, hmobile: this.contact.hmobile,
+        gender: this.personal.gender, dob: this.personal.dob, regno: +this.personal.regno
       } :
       {
         ...this.loginRecord, ...doctor
@@ -70,27 +71,28 @@ export class RecordService {
   }
 
   onLogin(regno) {
-    console.log("Regno: ", regno);
-    this.records.map((rec, index) => {
+    this.records.map(rec => {
       if (rec.regno == +regno) { //user found
         this.loginRecord = rec;
         this.saveToSession(this.loginRecord, 'loginRecord');
-        console.log("modified: ", this.loginRecord);
+        this.loginFound = true;
         console.log("found: ", rec);
         this._snackBar.open(`Welcome ${rec.name}`, '', {
           duration: 3000,
           panelClass: ['mat-toolbar', 'mat-primary']
         });
-        return this.router.navigate(['add/doctor'], { queryParams: { loginMode: true } }); //to add new dept and doctor
-      }
-      if (index + 1 === this.records.length) { //user NOT found
-        this._snackBar.open(`User Not Found !`, '', {
-          duration: 3000,
-          panelClass: ['mat-toolbar', 'mat-warn']
-        });
-        console.log("%c NOT found", 'color: red');
+        this.router.navigate(['add/doctor'], { queryParams: { loginMode: true } }); //to add new dept and doctor
+        return;
       }
     });
+    if (!this.loginFound) { //user NOT found
+      this.loginFound = false;
+      this._snackBar.open(`User Not Found !`, '', {
+        duration: 3000,
+        panelClass: ['mat-toolbar', 'mat-warn']
+      });
+      console.log("%c NOT found", 'color: red');
+    }
   }
 
   onSavePersonal(pers) {
@@ -103,6 +105,7 @@ export class RecordService {
 
   onSaveContact(cont) {
     this.contact = cont;
+    console.log("Contact ",this.contact)
     this.saveToSession(cont, 'contact');
     this.router.navigate(['add/doctor']);
   }
